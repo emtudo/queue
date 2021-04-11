@@ -3,8 +3,8 @@ defmodule Queue do
 
   # Client
 
-  def start_link(initial_stack) when is_list(initial_stack) do
-    GenServer.start_link(__MODULE__, initial_stack)
+  def start_link(initial_queue) when is_list(initial_queue) do
+    GenServer.start_link(__MODULE__, initial_queue)
   end
 
   def enqueue(pid, element) do
@@ -17,14 +17,14 @@ defmodule Queue do
 
   # Server (Callbacks)
   @impl true
-  def init(stack) do
-    {:ok, stack}
+  def init(queue) do
+    {:ok, queue}
   end
 
   @impl true
   # ASYNC
-  def handle_cast({:push, element}, stack) do
-    {:noreply, stack ++ [element]}
+  def handle_cast({:push, element}, queue) do
+    {:noreply, queue ++ [element]}
   end
 
   @impl true
